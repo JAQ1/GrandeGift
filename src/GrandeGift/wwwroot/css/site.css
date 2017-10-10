@@ -1,16 +1,26 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body{
+    height: 100%;
+    width: 100%;
+}
+
+h1, h2, h3, h4, h5, p, a, span{
+    color:white;
+}
+
+body {
     font-family: 'Julius Sans One', sans-serif;
-    background-color:red;
-    color:white
+}
+
+footer{
+    position:fixed;
 }
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    height: 100%;
+    margin:0;
+    padding:0;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -21,10 +31,6 @@ textarea {
 }
 
 /* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
 
 /* buttons and links extension to use brackets: [ click me ] */
 .btn-bracketed::before {
@@ -39,10 +45,6 @@ textarea {
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"]
-{
-    width: 100%;
-}
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
@@ -201,3 +203,36 @@ textarea {
     left:15px;
 }
 
+
+.sect {
+    height: 125%;
+    margin-left: -30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-attachment:fixed;
+}
+
+.subSect{
+    height:75%;
+    background-color:white;
+    z-index:20
+}
+
+.homeSect {
+    background-image: url('../images/present_grandegift.jpg');
+}
+
+.homeSectTwo {
+    background-image: url('../images/familyfeast_grandegift.jpg');
+}
+
+
+
+.slideImg{
+    height:100px;
+}
+
+#myCarousel{
+    height:100px;
+}

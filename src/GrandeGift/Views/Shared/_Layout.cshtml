@@ -19,15 +19,15 @@
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-    <div id="nav" class="overlay">
-        <div class="overlay__content">
-            <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            <a asp-area="" asp-controller="Gift" asp-action="Index">Gifts</a>
-            <a asp-area="" asp-controller="Home" asp-action="About">Contact</a>
+    <div class="container-fluid body-content">
+        <div id="nav" class="overlay">
+            <div class="overlay__content">
+                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-area="" asp-controller="Gift" asp-action="Index">Gifts</a>
+                <a asp-area="" asp-controller="Home" asp-action="About">Contact</a>
+            </div>
         </div>
-    </div>
 
-    <div class="container">
         <h1 class="navTitle">Grande Gift</h1>
 
         <div class="navToggleBtn" onclick="toggleNav()">
@@ -41,29 +41,29 @@
         <div class="cartBtn">
             <a class="glyphicon glyphicon-shopping-cart"></a>
         </div>
-    </div>
 
-
-    <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <div class="row">
-                <div class="col-lg-4">
-                    Copyright Notice
-                </div>
-                <div class="col-lg-4">
-                    
-                </div>
-                <div class="col-lg-2">
-                    <a>privacy policy</a>
-                </div>
-                <div class="col-lg-2">
-                    <a>terms of use</a>
-                </div>
-            </div>
-        </footer>
+
+        
+        
     </div>
+
+    <footer>
+        <div class="row">
+            <div class="col-lg-4">
+                Copyright Notice
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-lg-2">
+                <a>privacy policy</a>
+            </div>
+            <div class="col-lg-2">
+                <a>terms of use</a>
+            </div>
+        </div>
+    </footer>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
