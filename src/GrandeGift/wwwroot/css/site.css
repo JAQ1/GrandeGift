@@ -27,6 +27,7 @@ footer{
 input,
 select,
 textarea {
+    font-family:sans-serif;
 }
 
 /* Carousel */
@@ -253,6 +254,10 @@ textarea {
 
 .login-banner {
     background-image: url('../images/grande-gift_login.jpg');
+}
+
+.signup-banner {
+    background-image: url('../images/grande-gift_signup.jpg');
 }
 
 .navTitle{
