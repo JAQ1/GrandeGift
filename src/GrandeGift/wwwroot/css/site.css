@@ -4,7 +4,7 @@
 }
 
 h1, h2, h3, h4, h5, p, a, span{
-    color:white;
+    
 }
 
 body {
@@ -27,7 +27,6 @@ footer{
 input,
 select,
 textarea {
-    max-width: 280px;
 }
 
 /* Carousel */
@@ -201,6 +200,7 @@ textarea {
     position:fixed;
     top:0px;
     left:15px;
+    color:whitesmoke;
 }
 
 
@@ -227,6 +227,10 @@ textarea {
     background-image: url('../images/familyfeast_grandegift.jpg');
 }
 
+.accountSect {
+    background-image: url('../images/xmaslights_grandegift.jpg');
+}
+
 
 
 .slideImg{
@@ -236,3 +240,44 @@ textarea {
 #myCarousel{
     height:100px;
 }
+
+.page-banner {
+    height: 40%;
+    width:100%;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position-y: center;
+    margin:0;
+    padding:0;
+}
+
+.login-banner {
+    background-image: url('../images/grande-gift_login.jpg');
+}
+
+.navTitle{
+    text-shadow:5px 1px 1px #000000;
+}
+
+form{
+}
+
+form button{
+    width:100%;
+}
+
+.form-title{
+    text-align:center;
+}
+
+.userForm{
+    position:center;
+    border-bottom:2px solid rgba(0,0,0,.2);
+    width:25%;
+}
+
+.form-options{
+    text-align:center;
+}
+
+
