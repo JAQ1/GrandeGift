@@ -269,9 +269,14 @@ textarea {
     background-position-y:bottom;
 }
 
-.create-hamper-banner {
+.manage-hamper-banner {
     background-position-y: bottom;
     background-image: url('../images/createhamper_grandegift.jpeg');
+}
+
+.order-hamper-banner {
+    background-image: url('../images/present2_grandegift.jpg');
+    background-position-y: bottom;
 }
 
 .navTitle{

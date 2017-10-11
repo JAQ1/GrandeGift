@@ -21,5 +21,14 @@ namespace GrandeGift.Controllers
             return View();
         }
 
+        public IActionResult Update()
+        {
+            return View();
+        }
+
+        public IActionResult Order()
+        {
+            return View();
+        }
     }
 }
