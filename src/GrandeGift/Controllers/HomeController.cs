@@ -16,7 +16,7 @@ namespace GrandeGift.Controllers
             }
             else
             {
-                return RedirectToAction("Order", "Hamper");
+                return RedirectToAction("Create", "Category");
             }
         }
 
