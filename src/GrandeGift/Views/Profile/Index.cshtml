@@ -1,0 +1,35 @@
+﻿<div class="page-banner profile-banner"></div>
+<h1 class="page-title">Your profile</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            @*<img src="~/@Model.DisplayPhotoPath" alt="Cant display image1" class="img-thumbnail img-responsive user-img" />*@
+            <hr />
+        </div>
+        <div class="col-lg-9">
+            <ul class="nav nav-tabs profile-options">
+                <li class="active"><a href="#">Overview</a></li>
+                <li><a href="#">My Bookings</a></li>
+                <li><a asp-controller="Profile" asp-action="UpdateProfile">Update Profile</a></li>
+            </ul>
+            <br />
+            <div class="profile-options">
+                <h2><strong>Display Name:</strong></h2>
+                @*<h3>@Model.DisplayName</h3>*@
+                <br />
+                <h2><strong>Firstname:</strong></h2>
+                @*<h3>@Model.FirstName</h3>*@
+                <br />
+                <h2><strong>Lastname:</strong></h2>
+                @*<h3>@Model.LastName</h3>*@
+                <br />
+                <h2><strong>Email:</strong></h2>
+                @*<h3>@Model.Email</h3>*@
+                <br />
+                <h2><strong>Phone:</strong></h2>
+                @*<h3>@Model.Phone</h3>*@
+            </div>
+            <br />
+        </div>
+    </div>
+</div>

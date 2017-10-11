@@ -16,7 +16,7 @@ namespace GrandeGift.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "Profile");
             }
         }
 

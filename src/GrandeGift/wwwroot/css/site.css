@@ -260,6 +260,10 @@ textarea {
     background-image: url('../images/grande-gift_signup.jpg');
 }
 
+.profile-banner {
+    background-image: url('../images/spaceearth.png');
+}
+
 .navTitle{
     text-shadow:5px 1px 1px #000000;
 }
