@@ -269,8 +269,14 @@ textarea {
     background-position-y:bottom;
 }
 
+.create-hamper-banner {
+    background-position-y: bottom;
+    background-image: url('../images/createhamper_grandegift.jpeg');
+}
+
 .navTitle{
     text-shadow:5px 1px 1px #000000;
+    z-index:10;
 }
 
 form{
@@ -278,6 +284,7 @@ form{
 
 form button{
     width:100%;
+    margin-bottom:10px;
 }
 
 .form-title{
@@ -288,6 +295,7 @@ form button{
     position:center;
     border-bottom:2px solid rgba(0,0,0,.2);
     width:25%;
+    margin-bottom:25px;
 }
 
 .form-options{
