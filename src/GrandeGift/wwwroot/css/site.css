@@ -264,6 +264,11 @@ textarea {
     background-image: url('../images/spaceearth.png');
 }
 
+.hamper-index-banner {
+    background-image: url('../images/xmaslights_grandegift.jpg');
+    background-position-y:bottom;
+}
+
 .navTitle{
     text-shadow:5px 1px 1px #000000;
 }

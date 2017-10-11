@@ -1,0 +1,127 @@
+﻿@{
+    int colCount = 0;
+}
+<div class="page-banner hamper-index-banner"></div>
+<h1 class="page-title">Gift Hampers</h1>
+
+<div class="container">
+    <form @*asp-action="Index" asp-controller="Package" *@ method="post">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="form-group">
+                    <label>Search</label>
+                    <input type="text" @*asp-for="SearchQuery" *@ class="form-control" />
+
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Sort By</label>
+                    <select class="form-control" @*asp-for="@Model.SortBy" *@ id="sel1">
+                        <option>Name(A - Z)</option>
+                        <option>Location(A - Z)</option>
+                        <option>Price(High - Low)</option>
+                        <option>Price(Low - High)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div form-group>
+                    <label>minPrice</label>
+                    <input class="form-control" type="text" @*asp-for="MinPrice" value="@Model.MinPrice" *@ />
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div form-group>
+                    <label>maxPrice</label>
+                    <input class="form-control" type="text" @*asp-for="MaxPrice" value="@Model.MaxPrice" *@ />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-info" style="width:100%;">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr />
+
+<div class="container">
+    @for (var i = 0; i < 4; i++)
+    {
+        @if (colCount == 3)
+        {
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="panel panel-default package">
+                        <div class="panel-heading">
+                            @*<h3>@item.Name</h3>*@
+                        </div>
+                        <div class="panel-body">
+                            @*<img src="~/@item.PhotoLocation" alt="Image Error" class="package-img" />*@
+                        </div>
+                        <div class="panel-footer">
+                            <h5>@*$@item.Price*@</h5>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    @*<a asp-action="PackageDetails" asp-controller="Package" asp-route-id="@item.ID" class="btn btn-info">Details</a>*@
+                                </div>
+                            </div>
+                            @if (User.IsInRole("TravelProvider"))
+                            {
+                                <div class="row provider-package-options">
+                                    <div class="col-lg-6">
+                                        @*<a asp-action="UpdatePackage" asp-controller="Package" asp-route-id="@item.ID" class="glyphicon glyphicon-pencil btn btn-warning"></a>*@
+                                    </div>
+                                    <div class="col-lg-6">
+                                        @*<form asp-action="DiscontinuePackage" asp-controller="Package" asp-route-id="@item.ID" method="post"><button type="submit" class="glyphicon glyphicon-trash btn btn-danger"></button></form>*@
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                @*<div asp-action="PackageDetails" asp-controller="Package" asp-route-id="@item.ID" class="panel panel-default package">*@
+                <div class="panel-heading">
+                    <h2>@*@item.Name*@</h2>
+                </div>
+                <div class="panel-body">
+                    @*<img src="~/@item.PhotoLocation" alt="Image Error" class="package-img" />*@
+                </div>
+                <div class="panel-footer">
+                    <h3>@*$@item.Price*@</h3>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @*<a asp-action="PackageDetails" asp-controller="Package" asp-route-id="@item.ID" class="btn btn-info">Details</a>*@
+                        </div>
+                    </div>
+                    @*@if (User.IsInRole("TravelProvider"))
+                        {
+                            <div class="row provider-package-options">
+                                <div class="col-lg-6">
+                                    <a asp-action="UpdatePackage" asp-controller="Package" asp-route-id="@item.ID" class="glyphicon glyphicon-pencil btn btn-warning"></a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <form asp-action="DiscontinuePackage" asp-controller="Package" asp-route-id="@item.ID" method="post"><button type="submit" class="glyphicon glyphicon-trash btn btn-danger"></button></form>
+                                </div>
+                            </div>
+                        }*@
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@*@if (User.IsInRole("TravelProvider"))
+    {
+        <a asp-action="AddPackage" asp-controller="Package" class="glyphicon glyphicon-plus"></a>
+    }*@
