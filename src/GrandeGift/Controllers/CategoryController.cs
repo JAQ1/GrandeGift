@@ -68,9 +68,36 @@ namespace GrandeGift.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Update()
+        [HttpGet]
+        public IActionResult Update(int id)
         {
-            return View();
+            var category = _categoryRepo.GetSingle(c => c.CategoryId == id);
+
+            UpdateCategoryViewModel vm = new UpdateCategoryViewModel()
+            {
+                Name = category.Name,
+                Description = category.Description,
+                PhotoPath = category.PhotoPath,
+                CategoryId = id
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Update(UpdateCategoryViewModel vm, int id)
+        {
+            var user = GetCurrentUserAsync().Result;
+            var category = _categoryRepo.GetSingle(c => c.CategoryId == id);
+
+            category.Name = vm.Name;
+            category.Description = vm.Description;
+            category.PhotoPath = vm.PhotoPath;
+            category.UserId = user.Id;
+
+            _categoryRepo.Update(category);
+
+            return RedirectToAction("Index");
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()
