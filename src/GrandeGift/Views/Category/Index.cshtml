@@ -12,7 +12,7 @@
         <tr>
             <td>@item.Name</td>
             <td>@item.Description</td>
-            <td><a asp-action="Update" asp-controller="Category" asp-route-id="@item.CategoryId">Update</a> | <a>Discontinue</a></td>
+            <td><a asp-action="Update" asp-controller="Category" asp-route-id="@item.CategoryId">Update</a> | <form asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId" method="post"><button type="submit">Delete</button></form></td>
         </tr>
     }
 </table>
