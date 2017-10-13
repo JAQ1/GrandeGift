@@ -1,5 +1,11 @@
 ﻿<div class="page-banner profile-banner"></div>
 <h1 class="page-title">Your profile</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>Admin account</p>
+}
+
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
