@@ -1,0 +1,19 @@
+﻿@model CategoryIndexViewModel
+<div class="page-banner"></div>
+<table>
+    <tr>
+        <td>NAME</td>
+        <td>DESC</td>
+        <td>OPTIONS</td>
+    </tr>
+    @foreach (var item in Model.Categories)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td><a>Update</a> | <a>Discontinue</a></td>
+        </tr>
+    }
+</table>
+
+<a asp-action="Create" asp-controller="Category">Create</a>

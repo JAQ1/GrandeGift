@@ -43,6 +43,7 @@ namespace GrandeGift
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IRepository<Profile>, BaseRepository<Profile>>();
+            services.AddScoped<IRepository<Category>, BaseRepository<Category>>();
 
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);

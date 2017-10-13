@@ -11,6 +11,8 @@ namespace GrandeGift.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Profile> TblProfile { get; set; }
+        public DbSet<Category> TblCategory { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
