@@ -1,10 +1,11 @@
-﻿
+﻿@model UpdateProfileViewModel
+
 <div class="page-banner profile-banner"></div>
 <h1 class="page-title">Update Profile</h1>
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            @*<img src="~/@Model.DisplayPhotoPath" alt="Cant display image" class="img-thumbnail img-responsive user-img" />*@
+            <img src="~/@Model.DisplayPhotoPath" alt="profile picture" class="img-thumbnail img-responsive user-img" />
             <hr />
 
         </div>
@@ -16,38 +17,33 @@
             </ul>
             <br />
             <div class="profile-options">
-                <form asp-action="UpdateProfile" asp-controller="Profile" method="post">
+                <form asp-action="UpdateProfile" asp-controller="Profile" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <h2><strong>Display Name:</strong></h2>
-                        <input class="form-control" type="text" @*asp-for="@Model.DisplayName" value="@Model.DisplayName"*@ />
+                        <input class="form-control" type="text" asp-for="@Model.DisplayName" value="@Model.DisplayName" />
                     </div>
 
                     <div class="form-group">
                         <h2><strong>Firstname:</strong></h2>
-                        <input class="form-control" type="text" @*asp-for="@Model.FirstName" value="@Model.FirstName"*@ />
+                        <input class="form-control" type="text" asp-for="@Model.Firstname" value="@Model.Firstname" />
                     </div>
 
                     <div class="form-group">
                         <h2><strong>Lastname:</strong></h2>
-                        <input class="form-control" type="text" @*asp-for="@Model.LastName" value="@Model.LastName"*@ />
-                    </div>
-
-                    <div class="form-group">
-                        <h2><strong>Email:</strong></h2>
-                        <input class="form-control" type="text" @*asp-for="@Model.Email" value="@Model.Email"*@ />
+                        <input class="form-control" type="text" asp-for="@Model.Lastname" value="@Model.Lastname" />
                     </div>
 
                     <div class="form-group">
                         <h2><strong>Phone:</strong></h2>
-                        <input class="form-control" type="text" @*asp-for="@Model.Phone" value="@Model.Phone"*@ />
+                        <input class="form-control" type="text" asp-for="@Model.Phone" value="@Model.Phone" />
                     </div>
 
-                    @*<div class="form-group" id="dp-upload">
+                    <div class="form-group" id="dp-upload">
                         <label>Change Display Photo:</label>
                         <input asp-for="DisplayPhotoPath" class="form-control" type="file" />
-                    </div>*@
+                    </div>
 
-                    <button type="submit" class="btn btn-info">Update</button>
+                    <button type="submit" class="btn btn-warning">Update</button>
                 </form>
             </div>
             <br />

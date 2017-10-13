@@ -34,8 +34,25 @@
             <div class="hamburger"></div>
         </div>
 
-        <div class="userBtn">
-            <a class="glyphicon glyphicon-user"></a>
+        <div class="userBtn dropdown">
+            <a href="#" class="glyphicon glyphicon-user dropdown-toggle" data-toggle="dropdown"></a>
+
+            <ul class="dropdown-menu user-options">
+                <li class="dropdown-header"><a>User Options</a></li>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    //<li class="dropdown-header"><a href="#">Logged in as <strong>@User.Identity.Name</strong></a></li>
+                    <li class=""><a asp-controller="Profile" asp-action="Index">Your Profile</a></li>
+                    <li class="divider"></li>
+                    <form asp-action="Logout" asp-controller="Account" method="post"><button id="btn-logout">Logout</button></form>
+                }
+                else
+                {
+                    <li><a asp-action="SignUp" asp-controller="Account">Sign Up</a></li>
+                    <li><a asp-action="Login" asp-controller="Account">Login</a></li>
+                }
+            </ul>
         </div>
 
         <div class="cartBtn">
