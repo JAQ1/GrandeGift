@@ -12,14 +12,12 @@ namespace GrandeGift.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                //return View();
+                return View();
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
-
-            return RedirectToAction("Index", "Gift");
         }
 
         public IActionResult About()
