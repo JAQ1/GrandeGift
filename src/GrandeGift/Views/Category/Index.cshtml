@@ -1,20 +1,20 @@
-﻿@model CategoryIndexViewModel
+﻿@model GiftIndexViewModel
 
 <div class="page-banner"></div>
 <table>
     <tr>
         <td>NAME</td>
-        <td>DESC</td>
+        <td>Price</td>
         <td>OPTIONS</td>
     </tr>
-    @foreach (var item in Model.Categories)
+    @foreach (var item in Model.Gifts)
     {
         <tr>
             <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td><a asp-action="Update" asp-controller="Category" asp-route-id="@item.CategoryId">Update</a> | <form asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId" method="post"><button type="submit">Delete</button></form></td>
+            <td>@item.Price</td>
+            <td><a asp-action="Update" asp-controller="Gift" asp-route-id="@item.GiftId">Update</a> | <form asp-action="Delete" asp-controller="Gift" asp-route-id="@item.GiftId" method="post"><button type="submit">Delete</button></form></td>
         </tr>
     }
 </table>
 
-<a asp-action="Create" asp-controller="Category">Create</a>
+<a asp-action="Create" asp-controller="Gift">Create</a>

@@ -7,11 +7,13 @@ using GrandeGift.Models;
 using GrandeGift.Models.CategoryViewModels;
 using GrandeGift.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GrandeGift.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private UserManager<ApplicationUser> _userManager;

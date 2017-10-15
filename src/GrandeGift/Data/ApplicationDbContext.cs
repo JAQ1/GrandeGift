@@ -12,6 +12,7 @@ namespace GrandeGift.Data
     {
         public DbSet<Profile> TblProfile { get; set; }
         public DbSet<Category> TblCategory { get; set; }
+        public DbSet<Gift> TblGift { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
