@@ -85,6 +85,26 @@ namespace GrandeGift.Migrations
                     b.ToTable("TblCategory");
                 });
 
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
+                {
+                    b.Property<int>("GiftId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhotoPath");
+
+                    b.Property<double>("Price");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("GiftId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TblGift");
+                });
+
             modelBuilder.Entity("GrandeGift.Models.Profile", b =>
                 {
                     b.Property<int>("ProfileId")
@@ -217,6 +237,13 @@ namespace GrandeGift.Migrations
                 });
 
             modelBuilder.Entity("GrandeGift.Models.Category", b =>
+                {
+                    b.HasOne("GrandeGift.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
                 {
                     b.HasOne("GrandeGift.Models.ApplicationUser", "User")
                         .WithMany()

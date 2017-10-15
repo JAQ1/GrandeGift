@@ -1,5 +1,20 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model GiftIndexViewModel
+
+<div class="page-banner"></div>
+<table class="table table-hover">
+    <tr>
+        <td>NAME</td>
+        <td>PRICE</td>
+        <td>OPTIONS</td>
+    </tr>
+    @foreach (var item in Model.Gifts)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Price</td>
+            <td><a asp-action="Update" asp-controller="Gift" asp-route-id="@item.GiftId">Update</a> | <form asp-action="Delete" asp-controller="Gift" asp-route-id="@item.GiftId" method="post"><button type="submit">Delete</button></form></td>
+        </tr>
+    }
+</table>
+
+<a asp-action="Create" asp-controller="Gift">Create</a>

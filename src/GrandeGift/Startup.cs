@@ -45,6 +45,7 @@ namespace GrandeGift
             services.AddScoped<IRepository<Profile>, BaseRepository<Profile>>();
             services.AddScoped<IRepository<Gift>, BaseRepository<Gift>>();
             services.AddScoped<IRepository<Category>, BaseRepository<Category>>();
+            services.AddScoped<IRepository<Gift>, BaseRepository<Gift>>();
 
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);

@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GrandeGift.Models
+namespace GrandeGift.Models.GiftViewModels
 {
-    public class Gift
+    public class UpdateGiftViewModel
     {
         public int GiftId { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public string PhotoPath { get; set; }
-
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
     }
 }
