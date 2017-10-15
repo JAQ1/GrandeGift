@@ -16,10 +16,10 @@ namespace GrandeGift.Controllers
             }
             else
             {
-                //return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account");
             }
 
-            return RedirectToAction("Index", "Category");
+            return RedirectToAction("Index", "Gift");
         }
 
         public IActionResult About()

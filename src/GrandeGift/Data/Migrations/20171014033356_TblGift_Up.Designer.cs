@@ -8,9 +8,10 @@ using GrandeGift.Data;
 namespace GrandeGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171014033356_TblGift_Up")]
+    partial class TblGift_Up
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -83,6 +84,26 @@ namespace GrandeGift.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TblCategory");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
+                {
+                    b.Property<int>("GiftId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhotoPath");
+
+                    b.Property<double>("Price");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("GiftId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TblGift");
                 });
 
             modelBuilder.Entity("GrandeGift.Models.Profile", b =>
@@ -217,6 +238,13 @@ namespace GrandeGift.Migrations
                 });
 
             modelBuilder.Entity("GrandeGift.Models.Category", b =>
+                {
+                    b.HasOne("GrandeGift.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
                 {
                     b.HasOne("GrandeGift.Models.ApplicationUser", "User")
                         .WithMany()
