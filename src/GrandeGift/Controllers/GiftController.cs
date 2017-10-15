@@ -100,7 +100,17 @@ namespace GrandeGift.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var gift = _giftRepo.GetSingle(g => g.GiftId == id);
+
+            _giftRepo.Delete(gift);
+
+            return RedirectToAction("Index");
+        }
+
+
 
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
