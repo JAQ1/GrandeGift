@@ -68,47 +68,39 @@ namespace GrandeGift.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpGet]
-        //public IActionResult Update(int id)
-        //{
-        //    var gift = _giftRepo.GetSingle(g => g.GiftId == id);
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var gift = _giftRepo.GetSingle(g => g.GiftId == id);
 
-        //    UpdateCategoryViewModel vm = new UpdateCategoryViewModel()
-        //    {
-        //        Name = category.Name,
-        //        Description = category.Description,
-        //        PhotoPath = category.PhotoPath,
-        //        CategoryId = id
-        //    };
+            UpdateGiftViewModel vm = new UpdateGiftViewModel()
+            {
+                Name = gift.Name,
+                Price = gift.Price,
+                PhotoPath = gift.PhotoPath,
+                GiftId = id
+            };
 
-        //    return View(vm);
-        //}
+            return View(vm);
+        }
 
-        //[HttpPost]
-        //public IActionResult Update(UpdateCategoryViewModel vm, int id)
-        //{
-        //    var user = GetCurrentUserAsync().Result;
-        //    var category = _categoryRepo.GetSingle(c => c.CategoryId == id);
+        [HttpPost]
+        public IActionResult Update(UpdateGiftViewModel vm, int id)
+        {
+            var user = GetCurrentUserAsync().Result;
+            var gift = _giftRepo.GetSingle(g => g.GiftId == id);
 
-        //    category.Name = vm.Name;
-        //    category.Description = vm.Description;
-        //    category.PhotoPath = vm.PhotoPath;
-        //    category.UserId = user.Id;
+            gift.Name = vm.Name;
+            gift.Price = vm.Price;
+            gift.PhotoPath = vm.PhotoPath;
+            gift.UserId = user.Id;
 
-        //    _categoryRepo.Update(category);
+            _giftRepo.Update(gift);
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
-        //[HttpPost]
-        //public IActionResult Delete(int id)
-        //{
-        //    var category = _categoryRepo.GetSingle(c => c.CategoryId == id);
-
-        //    _categoryRepo.Delete(category);
-
-        //    return RedirectToAction("Index");
-        //}
+        
 
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
