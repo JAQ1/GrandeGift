@@ -61,8 +61,10 @@
                 <td>$@item.Price</td>
                 <td>@item.CategoryName</td>
                 <td>
-                    <a asp-action="Update" asp-controller="Hamper" asp-route-id="@item.HamperId">Update</a>
-                    <a>Delete</a>
+                    <a asp-action="Update" asp-controller="Hamper" asp-route-id="@item.HamperId" class="btn btn-warning">Update</a>
+                    <form asp-action="Discontinue" asp-controller="Hamper" asp-route-id="@item.HamperId" method="post">
+                        <button type="submit" class="btn btn-danger">Discontinue</button>
+                    </form>
                 </td>
             </tr>
         }

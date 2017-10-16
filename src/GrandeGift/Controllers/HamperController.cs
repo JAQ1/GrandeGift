@@ -32,7 +32,7 @@ namespace GrandeGift.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            IEnumerable<Hamper> hampers = _hamperRepo.GetAll();
+            IEnumerable<Hamper> hampers = _hamperRepo.Query(h => h.Active != true);
 
             if (hampers.Count() == 0)
             {
@@ -97,6 +97,17 @@ namespace GrandeGift.Controllers
             hamper.Price = vm.Price;
             hamper.CategoryId = vm.SelectedCategoryId;
             hamper.CategoryName = _categoryRepo.GetSingle(c => c.CategoryId == vm.SelectedCategoryId).Name;
+
+            _hamperRepo.Update(hamper);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Discontinue(int id)
+        {
+            Hamper hamper = _hamperRepo.GetSingle(h => h.HamperId == id);
+            hamper.Active = true;
 
             _hamperRepo.Update(hamper);
 
