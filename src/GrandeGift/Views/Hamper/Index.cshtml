@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HamperIndexViewModel
+
+@{
     int colCount = 0;
 }
 <div class="page-banner hamper-index-banner"></div>
@@ -49,6 +51,26 @@
 </div>
 
 <hr />
+
+<div class="container">
+    <table class="table-bordered">
+        @foreach (var item in Model.Hampers)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>$@item.Price</td>
+                <td>@item.CategoryName</td>
+                <td>
+                    <a asp-action="Update" asp-controller="Hamper" asp-route-id="@item.HamperId">Update</a>
+                    <a>Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <a asp-action="Create" asp-controller="Hamper">create Hamper</a>
+</div>
+
+
 
 <div class="container">
     @for (var i = 0; i < 4; i++)

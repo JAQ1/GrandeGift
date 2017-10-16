@@ -63,6 +63,50 @@ namespace GrandeGift.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TblCategory",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    PhotoPath = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblCategory", x => x.CategoryId);
+                    table.ForeignKey(
+                        name: "FK_TblCategory_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblGift",
+                columns: table => new
+                {
+                    GiftId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    PhotoPath = table.Column<string>(nullable: true),
+                    Price = table.Column<double>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblGift", x => x.GiftId);
+                    table.ForeignKey(
+                        name: "FK_TblGift_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TblProfile",
                 columns: table => new
                 {
@@ -184,6 +228,16 @@ namespace GrandeGift.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_TblCategory_UserId",
+                table: "TblCategory",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TblGift_UserId",
+                table: "TblGift",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TblProfile_UserId",
                 table: "TblProfile",
                 column: "UserId");
@@ -221,6 +275,12 @@ namespace GrandeGift.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TblCategory");
+
+            migrationBuilder.DropTable(
+                name: "TblGift");
+
             migrationBuilder.DropTable(
                 name: "TblProfile");
 

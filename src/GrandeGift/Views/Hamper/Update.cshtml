@@ -1,34 +1,38 @@
-﻿
+﻿@model UpdateHamperViewModel
+
 <div class="page-banner manage-hamper-banner"></div>
+<h1 class="page-title">Update Hamper</h1>
 
 <div class="container userForm">
-    <form>
-        <h1 class="form-title">Update Hamper</h1>
+    <form asp-action="Update" asp-controller="Hamper" method="post">
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" />
+            <input type="text" asp-for="@Model.Name" value="@Model.Name" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Details</label>
-            <input type="text" class="form-control" />
+            <label>Description</label>
+            <input type="text" asp-for="@Model.Description" value="@Model.Description" class="form-control" />
         </div>
         <div class="form-group">
             <label>Price</label>
-            <input type="text" class="form-control" />
+            <input type="text" asp-for="@Model.Price" value="@Model.Price" class="form-control" />
         </div>
         <div class="form-group">
             <label>Category</label>
-            <select class="form-control" id="sel1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+            <select class="form-control" asp-for="@Model.SelectedCategoryId" value="@Model.SelectedCategoryName">
+                @foreach (var item in Model.Categories)
+                {
+                    <option value="@item.CategoryId">@item.Name</option>
+                }
             </select>
+            <a asp-action="Create" asp-controller="Category">Create Category</a>
         </div>
         <div class="form-group">
             <label>Picture</label>
             <input type="file" class="form-control" />
         </div>
+
+        <a>Update gifts in this Hamper</a>
 
         <button type="submit" class="btn btn-warning">Update</button>
     </form>

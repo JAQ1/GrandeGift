@@ -1,34 +1,38 @@
-﻿
+﻿@model CreateHamperViewModel
+
 <div class="page-banner manage-hamper-banner"></div>
+<h1 class="page-title">Create Hamper</h1>
 
 <div class="container userForm">
-    <form>
-        <h1 class="form-title">Create Hamper</h1>
+    <form asp-action="Create" asp-controller="Hamper" method="post">
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" />
+            <input type="text" asp-for="@Model.Name" class="form-control" />
         </div>
         <div class="form-group">
             <label>Details</label>
-            <input type="text" class="form-control" />
+            <input type="text" asp-for="@Model.Details" class="form-control" />
         </div>
         <div class="form-group">
             <label>Price</label>
-            <input type="text" class="form-control" />
+            <input type="text" asp-for="@Model.Price" class="form-control" />
         </div>
         <div class="form-group">
             <label>Category</label>
-            <select class="form-control" id="sel1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+            <select class="form-control" asp-for="@Model.SelectedCategoryId">
+                @foreach (var item in Model.Categories)
+                {
+                    <option value="@item.CategoryId">@item.Name</option>
+                }
             </select>
+            <a asp-action="Create" asp-controller="Category">Create Category</a>
         </div>
         <div class="form-group">
             <label>Picture</label>
             <input type="file" class="form-control" />
         </div>
+
+        <a>Add gifts to this Hamper</a>
 
         <button type="submit" class="btn btn-success">Create</button>
     </form>

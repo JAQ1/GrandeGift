@@ -67,7 +67,7 @@ namespace GrandeGift.Controllers
 
             _categoryRepo.Create(category);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Hamper");
         }
 
         [HttpGet]

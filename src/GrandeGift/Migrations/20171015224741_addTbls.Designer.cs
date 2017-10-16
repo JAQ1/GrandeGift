@@ -8,8 +8,8 @@ using GrandeGift.Data;
 namespace GrandeGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171013055851_TblCategory_Up")]
-    partial class TblCategory_Up
+    [Migration("20171015224741_addTbls")]
+    partial class addTbls
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,64 @@ namespace GrandeGift.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TblCategory");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
+                {
+                    b.Property<int>("GiftId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhotoPath");
+
+                    b.Property<double>("Price");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("GiftId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TblGift");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Hamper", b =>
+                {
+                    b.Property<int>("HamperId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<double>("Price");
+
+                    b.HasKey("HamperId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("TblHamper");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.HamperGift", b =>
+                {
+                    b.Property<int>("HamperGiftId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("GiftId");
+
+                    b.Property<int>("HamperId");
+
+                    b.HasKey("HamperGiftId");
+
+                    b.HasIndex("GiftId");
+
+                    b.HasIndex("HamperId");
+
+                    b.ToTable("TblHamperGift");
                 });
 
             modelBuilder.Entity("GrandeGift.Models.Profile", b =>
@@ -222,6 +280,34 @@ namespace GrandeGift.Migrations
                     b.HasOne("GrandeGift.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
+                {
+                    b.HasOne("GrandeGift.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Hamper", b =>
+                {
+                    b.HasOne("GrandeGift.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.HamperGift", b =>
+                {
+                    b.HasOne("GrandeGift.Models.Gift", "Gift")
+                        .WithMany()
+                        .HasForeignKey("GiftId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GrandeGift.Models.Hamper", "Hamper")
+                        .WithMany()
+                        .HasForeignKey("HamperId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GrandeGift.Models.Profile", b =>

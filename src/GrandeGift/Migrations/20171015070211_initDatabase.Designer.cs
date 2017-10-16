@@ -8,7 +8,7 @@ using GrandeGift.Data;
 namespace GrandeGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171012233635_initDatabase")]
+    [Migration("20171015070211_initDatabase")]
     partial class initDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,46 @@ namespace GrandeGift.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhotoPath");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TblCategory");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
+                {
+                    b.Property<int>("GiftId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhotoPath");
+
+                    b.Property<double>("Price");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("GiftId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TblGift");
                 });
 
             modelBuilder.Entity("GrandeGift.Models.Profile", b =>
@@ -195,6 +235,20 @@ namespace GrandeGift.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Category", b =>
+                {
+                    b.HasOne("GrandeGift.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GrandeGift.Models.Gift", b =>
+                {
+                    b.HasOne("GrandeGift.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GrandeGift.Models.Profile", b =>
