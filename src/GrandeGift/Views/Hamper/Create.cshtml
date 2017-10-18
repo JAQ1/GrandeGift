@@ -4,18 +4,15 @@
 <h1 class="page-title">Create Hamper</h1>
 
 <div class="container userForm">
-    <form asp-action="Create" asp-controller="Hamper" method="post">
+    <form asp-action="Create" asp-controller="Hamper" asp-route-id="@Model.Hamper.HamperId" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Name</label>
-            <input type="text" asp-for="@Model.Name" class="form-control" />
+            <input type="text" asp-for="@Model.Name" value="@Model.Hamper.Name" class="form-control" />
         </div>
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" asp-for="@Model.Description" class="form-control" />
-        </div>
+
         <div class="form-group">
             <label>Price</label>
-            <input type="text" asp-for="@Model.Price" class="form-control" />
+            <input type="text" asp-for="@Model.Price" value="@Model.Hamper.Name" class="form-control" />
         </div>
         <div class="form-group">
             <label>Category</label>
@@ -26,13 +23,20 @@
                 }
             </select>
             <a asp-action="Create" asp-controller="Category">Create Category</a>
+            <a asp-action="Update" asp-controller="Category">Update Category</a>
         </div>
         <div class="form-group">
             <label>Picture</label>
-            <input type="file" class="form-control" />
+            <input type="file" asp-for="@Model.PhotoPath" class="form-control" />
         </div>
 
-        <a>Add gifts to this Hamper</a>
+        <ol>
+            @foreach (var item in Model.HamperGifts)
+            {
+                <li>@item.GiftName</li>
+            }
+        </ol>
+        <a asp-action="GiftList" asp-controller="Hamper" asp-route-id="@Model.Hamper.HamperId">Manage gifts in this Hamper</a>
 
         <button type="submit" class="btn btn-success">Create</button>
     </form>

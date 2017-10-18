@@ -7,13 +7,26 @@ h1, h2, h3, h4, h5, p, a, span{
     
 }
 
+.action-btn-icon{
+    color:white
+}
+
+.action-btn{
+    color:white;
+}
+
+.admin-hamper-options a{
+    width:100%;
+}
+
 body {
     font-family: 'Julius Sans One', sans-serif;
 }
 
-footer{
-    position:fixed;
-}
+/*footer{
+    height:25%;
+    background-color:burlywood;
+}*/
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -167,6 +180,18 @@ textarea {
     top: 20px;
     right: 50px;
     font-size: 50px;
+}
+
+.overlay-footer a{
+    font-size:14px;
+    position:absolute;
+    margin-top:195px;
+    color:white;
+}
+
+.contact-info{
+    color:white;
+    margin-top:195px;
 }
 
 .userBtn {

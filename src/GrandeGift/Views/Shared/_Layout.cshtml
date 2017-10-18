@@ -19,54 +19,71 @@
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-    <div class="container-fluid body-content">
-        <div id="nav" class="overlay">
-            <div class="overlay__content">
-                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                <a asp-area="" asp-controller="Gift" asp-action="Index">Gifts</a>
-                <a asp-area="" asp-controller="Home" asp-action="About">Contact</a>
+    <header>
+        <nav>
+            <div class="container-fluid body-content">
+                <div id="nav" class="overlay">
+                    <div class="overlay__content">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a asp-area="" asp-controller="Hamper" asp-action="Index">Hampers</a>
+
+                        @*<div class="overlay-footer">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <a>copy</a>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="contact-info">
+                                        <span class="glyphicon glyphicon-phone "></span><p>0489 726 115</p>
+                                        <br />
+                                        <span class="glyphicon glyphicon-envelope "></span><p>grandeTravels@email.com</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a>terms</a>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <h1 class="navTitle">Grande Gift</h1>
+            <h1 class="navTitle">Grande Gift</h1>
 
-        <div class="navToggleBtn" onclick="toggleNav()">
-            <div class="hamburger"></div>
-        </div>
+            <div class="navToggleBtn" onclick="toggleNav()">
+                <div class="hamburger"></div>
+            </div>
 
-        <div class="userBtn dropdown">
-            <a href="#" class="glyphicon glyphicon-user dropdown-toggle" data-toggle="dropdown"></a>
+            <div class="userBtn dropdown">
+                <a href="#" class="glyphicon glyphicon-user dropdown-toggle" data-toggle="dropdown"></a>
 
-            <ul class="dropdown-menu user-options">
-                <li class="dropdown-header"><a>User Options</a></li>
+                <ul class="dropdown-menu user-options">
+                    <li class="dropdown-header"><a>User Options</a></li>
 
-                @if (User.Identity.IsAuthenticated)
-                {
-                    //<li class="dropdown-header"><a href="#">Logged in as <strong>@User.Identity.Name</strong></a></li>
-                    <li class=""><a asp-controller="Profile" asp-action="Index">Your Profile</a></li>
-                    <li class="divider"></li>
-                    <form asp-action="LogOff" asp-controller="Account" method="post"><button id="btn-logout">Logout</button></form>
-                }
-                else
-                {
-                    <li><a asp-action="SignUp" asp-controller="Account">Sign Up</a></li>
-                    <li><a asp-action="Login" asp-controller="Account">Login</a></li>
-                }
-            </ul>
-        </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        //<li class="dropdown-header"><a href="#">Logged in as <strong>@User.Identity.Name</strong></a></li>
+                        <li class=""><a asp-controller="Profile" asp-action="Index">Your Profile</a></li>
+                            <li class="divider"></li>
+                            <form asp-action="LogOff" asp-controller="Account" method="post"><button id="btn-logout">Logout</button></form>
+                    }
+                    else
+                    {
+                        <li><a asp-action="SignUp" asp-controller="Account">Sign Up</a></li>
+                            <li><a asp-action="Login" asp-controller="Account">Login</a></li>
+                    }
+                </ul>
+            </div>
 
-        <div class="cartBtn">
-            <a class="glyphicon glyphicon-shopping-cart"></a>
-        </div>
-
+            <div class="cartBtn">
+                <a class="glyphicon glyphicon-shopping-cart"></a>
+            </div>
+        </nav>
+    </header>
+    <main class="container-fluid body-content">
         @RenderBody()
-
-        
-        
-    </div>
-
+    </main>
     <footer>
-        <div class="row">
+        @*<div class="row">
             <div class="col-lg-4">
                 Copyright Notice
             </div>
@@ -79,7 +96,8 @@
             <div class="col-lg-2">
                 <a>terms of use</a>
             </div>
-        </div>
+        </div>*@
+
     </footer>
 
     <environment names="Development">

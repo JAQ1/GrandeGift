@@ -11,7 +11,9 @@ namespace GrandeGift.Models
 
         public int GiftId { get; set; }
         public Gift Gift { get; set; }
+        public string GiftName { get; set; }
         public int HamperId { get; set; }
         public Hamper Hamper { get; set; }
+        public string HamperName { get; set; }
     }
 }

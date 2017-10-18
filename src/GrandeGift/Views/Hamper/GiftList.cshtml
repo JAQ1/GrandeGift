@@ -1,0 +1,29 @@
+﻿@model GiftListViewModel
+
+<div class="page-banner manage-hamper-banner"></div>
+<h1 class="page-title">Add Gifts To Hamper</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="page-title">All Gifts</h2>
+
+            @foreach (var item in Model.Gifts)
+            {
+                <p><strong>@item.Name</strong> $@item.Price</p>
+                <form asp-action="CreateHamperGift" asp-controller="Hamper" asp-route-giftId="@item.GiftId" asp-route-hampId="@Model.Hamper.HamperId" method="post">
+                    <button type="submit" class="btn btn-success">Add</button>
+                </form>
+            }
+        </div>
+        <div class="col-lg-6">
+            <h2 class="page-title">Gifts In Hamper</h2>
+
+            @foreach (var item in Model.HamperGifts)
+            {
+                <p>@item.GiftName</p>
+            }
+        </div>
+        <a class="page-title" asp-action="Create" asp-controller="Hamper" asp-route-id="@Model.Hamper.HamperId">back to hamper/</a>
+    </div>
+</div>

@@ -53,29 +53,7 @@
 <hr />
 
 <div class="container">
-    <table class="table-bordered">
-        @foreach (var item in Model.Hampers)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>$@item.Price</td>
-                <td>@item.CategoryName</td>
-                <td>
-                    <a asp-action="Update" asp-controller="Hamper" asp-route-id="@item.HamperId" class="btn btn-warning">Update</a>
-                    <form asp-action="Discontinue" asp-controller="Hamper" asp-route-id="@item.HamperId" method="post">
-                        <button type="submit" class="btn btn-danger">Discontinue</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </table>
-    <a asp-action="Create" asp-controller="Hamper">create Hamper</a>
-</div>
-
-
-
-<div class="container">
-    @for (var i = 0; i < 4; i++)
+    @foreach (var item in Model.Hampers)
     {
         @if (colCount == 3)
         {
@@ -83,26 +61,26 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="panel panel-default package">
                         <div class="panel-heading">
-                            @*<h3>@item.Name</h3>*@
+                            <h3>@item.Name</h3>
                         </div>
                         <div class="panel-body">
-                            @*<img src="~/@item.PhotoLocation" alt="Image Error" class="package-img" />*@
+                            <img src="~/@item.PhotoPath" alt="hamper image" class="img-responsive" />
                         </div>
                         <div class="panel-footer">
-                            <h5>@*$@item.Price*@</h5>
+                            <h5>$@item.Price</h5>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    @*<a asp-action="PackageDetails" asp-controller="Package" asp-route-id="@item.ID" class="btn btn-info">Details</a>*@
+                                    <a @*asp-action="Details" asp-controller="Package" asp-route-id="@item.HamperId"*@ class="btn btn-info">Details</a>
                                 </div>
                             </div>
-                            @if (User.IsInRole("TravelProvider"))
+                            @if (User.IsInRole("Admin"))
                             {
-                                <div class="row provider-package-options">
+                                <div class="row admin-hamper-options">
                                     <div class="col-lg-6">
-                                        @*<a asp-action="UpdatePackage" asp-controller="Package" asp-route-id="@item.ID" class="glyphicon glyphicon-pencil btn btn-warning"></a>*@
+                                        <a asp-action="Update" asp-controller="Hamper" asp-route-id="@item.HamperId" class="glyphicon glyphicon-pencil btn btn-warning"></a>
                                     </div>
                                     <div class="col-lg-6">
-                                        @*<form asp-action="DiscontinuePackage" asp-controller="Package" asp-route-id="@item.ID" method="post"><button type="submit" class="glyphicon glyphicon-trash btn btn-danger"></button></form>*@
+                                        <form asp-action="Discontinue" asp-controller="Hamper" asp-route-id="@item.HamperId" method="post"><button type="submit" class="glyphicon glyphicon-trash btn btn-danger"></button></form>
                                     </div>
                                 </div>
                             }
@@ -116,36 +94,39 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 @*<div asp-action="PackageDetails" asp-controller="Package" asp-route-id="@item.ID" class="panel panel-default package">*@
                 <div class="panel-heading">
-                    <h2>@*@item.Name*@</h2>
+                    <h2>@item.Name</h2>
                 </div>
                 <div class="panel-body">
-                    @*<img src="~/@item.PhotoLocation" alt="Image Error" class="package-img" />*@
+                    <img src="~/@item.PhotoPath" alt="Image Error" class="package-img img-responsive" />
                 </div>
                 <div class="panel-footer">
-                    <h3>@*$@item.Price*@</h3>
+                    <h3>$@item.Price</h3>
                     <div class="row">
                         <div class="col-lg-12">
                             @*<a asp-action="PackageDetails" asp-controller="Package" asp-route-id="@item.ID" class="btn btn-info">Details</a>*@
                         </div>
                     </div>
-                    @*@if (User.IsInRole("TravelProvider"))
+                    @if (User.IsInRole("Admin"))
                         {
-                            <div class="row provider-package-options">
+                            <div class="row admin-hamper-options">
                                 <div class="col-lg-6">
-                                    <a asp-action="UpdatePackage" asp-controller="Package" asp-route-id="@item.ID" class="glyphicon glyphicon-pencil btn btn-warning"></a>
+                                    <a asp-action="Update" asp-controller="Hamper" asp-route-id="@item.HamperId" class="glyphicon glyphicon-pencil btn btn-warning"></a>
                                 </div>
                                 <div class="col-lg-6">
-                                    <form asp-action="DiscontinuePackage" asp-controller="Package" asp-route-id="@item.ID" method="post"><button type="submit" class="glyphicon glyphicon-trash btn btn-danger"></button></form>
+                                    <form asp-action="Discontinue" asp-controller="Hamper" asp-route-id="@item.HamperId" method="post"><button type="submit" class="glyphicon glyphicon-trash btn btn-danger"></button></form>
                                 </div>
                             </div>
-                        }*@
+                        }
                 </div>
             </div>
         }
     }
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" asp-controller="Hamper" class="btn btn-success action-btn" style="width:100%;">
+            <span  class="glyphicon glyphicon-plus action-btn-icon"></span>
+        </a>
+    }
 </div>
 
-@*@if (User.IsInRole("TravelProvider"))
-    {
-        <a asp-action="AddPackage" asp-controller="Package" class="glyphicon glyphicon-plus"></a>
-    }*@
+

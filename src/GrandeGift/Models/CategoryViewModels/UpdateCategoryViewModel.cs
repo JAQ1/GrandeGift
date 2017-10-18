@@ -7,9 +7,8 @@ namespace GrandeGift.Models.CategoryViewModels
 {
     public class UpdateCategoryViewModel
     {
-        public int CategoryId { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
+        public int SelectedCategoryId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string PhotoPath { get; set; }
     }
 }

@@ -4,21 +4,21 @@
 <h1 class="page-title">Update Category</h1>
 
 <div class="container userForm">
-    <form asp-action="Update" asp-controller="Category" asp-route-id="@Model.CategoryId" method="post" enctype="multipart/form-data">
+    <form asp-action="Update" asp-controller="Category" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>Category to Update</label>
+            <select class="form-control" asp-for="@Model.SelectedCategoryId">
+                @foreach (var item in Model.Categories)
+                {
+                    <option value="@item.CategoryId">@item.Name</option>
+                }
+            </select>
+        </div>
 
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" asp-for="@Model.Name" value="@Model.Name" />
-        </div>
-
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" asp-for="@Model.Description" value="@Model.Description"/>
-        </div>
-
-        <div class="form-group">
-            <label>Photo</label>
-            <input type="file" class="form-control" asp-for="@Model.PhotoPath" value="@Model.PhotoPath"/>
+            <input type="text" class="form-control" asp-for="@Model.Name" />
         </div>
 
         <div class="form-group">

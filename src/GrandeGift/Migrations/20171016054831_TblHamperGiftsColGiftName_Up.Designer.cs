@@ -8,9 +8,10 @@ using GrandeGift.Data;
 namespace GrandeGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171016054831_TblHamperGiftsColGiftName_Up")]
+    partial class TblHamperGiftsColGiftName_Up
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -114,9 +115,11 @@ namespace GrandeGift.Migrations
 
                     b.Property<int?>("CategoryId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("CategoryName");
 
-                    b.Property<string>("PhotoPath");
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
 
                     b.Property<double>("Price");
 
@@ -137,8 +140,6 @@ namespace GrandeGift.Migrations
                     b.Property<string>("GiftName");
 
                     b.Property<int>("HamperId");
-
-                    b.Property<string>("HamperName");
 
                     b.HasKey("HamperGiftId");
 
@@ -309,7 +310,7 @@ namespace GrandeGift.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GrandeGift.Models.Hamper", "Hamper")
-                        .WithMany("HamperGifts")
+                        .WithMany()
                         .HasForeignKey("HamperId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using GrandeGift.Data;
 using GrandeGift.Models;
 using GrandeGift.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace GrandeGift
 {
@@ -63,6 +64,21 @@ namespace GrandeGift
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            // ********************
+            // Setup CORS
+            // ********************
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin(); // For anyone access.
+            //corsBuilder.WithOrigins("http://localhost:56573"); // for a specific url. Don't add a forward slash on the end!
+            corsBuilder.AllowCredentials();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("SiteCorsPolicy", corsBuilder.Build());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +114,11 @@ namespace GrandeGift
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // ********************
+            // USE CORS - might not be required.
+            // ********************
+            app.UseCors("SiteCorsPolicy");
         }
     }
 }
