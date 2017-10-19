@@ -70,7 +70,7 @@
                             <h5>$@item.Price</h5>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a @*asp-action="Details" asp-controller="Package" asp-route-id="@item.HamperId"*@ class="btn btn-info">Details</a>
+                                    <a asp-action="Details" asp-controller="Hamper" asp-route-id="@item.HamperId" class="btn btn-info">Details</a>
                                 </div>
                             </div>
                             @if (User.IsInRole("Admin"))
@@ -103,7 +103,7 @@
                     <h3>$@item.Price</h3>
                     <div class="row">
                         <div class="col-lg-12">
-                            @*<a asp-action="PackageDetails" asp-controller="Package" asp-route-id="@item.ID" class="btn btn-info">Details</a>*@
+                            <a asp-action="Details" asp-controller="Hamper" asp-route-id="@item.HamperId" class="btn btn-info">Details</a>
                         </div>
                     </div>
                     @if (User.IsInRole("Admin"))
