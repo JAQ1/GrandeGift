@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GrandeGift.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HamperController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
@@ -41,19 +43,31 @@ namespace GrandeGift.Controllers
             _hostingEnviro = hostingEnviro;
         }
         // GET: /<controller>/
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Hamper> activeHampers = _hamperRepo.Query(
+            double maxPrice = 0;
+            double minPrice = 0;
+            IEnumerable<Hamper> activeHampers = new List<Hamper>();
+
+            activeHampers = _hamperRepo.Query(
                 h => h.Active == true
                 );
+            
+            maxPrice = activeHampers.OrderByDescending(h => h.Price).ElementAt(0).Price;
+            minPrice = activeHampers.OrderBy(h => h.Price).ElementAt(0).Price;
+            
 
             HamperIndexViewModel vm = new HamperIndexViewModel();
             vm.Hampers = activeHampers;
+            vm.MaxPrice = maxPrice;
+            vm.MinPrice = minPrice;
 
             return View(vm);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Index(HamperIndexViewModel vm)
         {
@@ -91,6 +105,13 @@ namespace GrandeGift.Controllers
                 default:
                     break;
             }
+
+            //Filter by Price
+            searchResult = _hamperRepo.Query(
+                h => h.Price >= minPrice
+                && h.Price <= maxPrice
+                && h.Active == true
+                );
 
             vm.Hampers = searchResult;
 
@@ -254,7 +275,6 @@ namespace GrandeGift.Controllers
             return View(vm);
         }
 
-
         [HttpPost]
         public IActionResult CreateHamperGift(GiftListViewModel vm, int giftId, int hampId)
         {
@@ -272,26 +292,6 @@ namespace GrandeGift.Controllers
             _hamperGiftRepo.Create(hamperGift);
 
             return RedirectToAction("GiftList", "Hamper" , hamper);
-        }
-
-        [HttpPost]
-        public IActionResult Search(HamperIndexViewModel vm)
-        {
-            // double check query specs
-            IEnumerable<Hamper> searchHampers = _hamperRepo.Query(
-
-                h => h.Active == true
-                && h.Name.Contains(vm.SearchQuery)
-                );
-
-            vm.Hampers = searchHampers;
-
-            return RedirectToAction("Index", vm);
-        }
-
-        public IActionResult Order()
-        {
-            return View();
         }
     }
 }
