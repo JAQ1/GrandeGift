@@ -1,0 +1,109 @@
+﻿@model HamperDetailsViewModel
+
+<div class="page-banner details-banner"></div>
+<h1 class="page-title">Details</h1>
+
+
+<div class="container">
+    <div class="row">
+        <h2>@Model.Hamper.Name </h2>
+
+        <div class="col-lg-8">
+            <h3>$@Model.Hamper.Price</h3>
+
+            <img src="~/@Model.Hamper.PhotoPath" class="img-responsive" alt="Alternate Text" />
+            <br />
+
+            <p><strong>Details: </strong></p>
+
+            <ol>
+                @foreach (var item in Model.HamperGifts)
+                {
+                    <li>@item.GiftName</li>
+                }
+            </ol>
+
+            @*<form asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@Model.Package.ID" method="post">
+                <button type="submit" class="btn btn-success">Add to cart</button>
+            </form>*@
+
+            <hr />
+
+            <form asp-action="Details" asp-controller="Hamper" asp-route-id="@Model.Hamper.HamperId" method="post">
+                <div class="form-group">
+                    <label>leave feedback</label>
+                    <input class="form-control"  type="text" rows="3" />
+
+
+                    <button class="btn btn-info">Post</button>
+                </div>
+            </form>
+            @*<h5>@Model.CommentCount Comments</h5>*@
+
+            @*@foreach (var item in Model.PackageFeedback)
+            {
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                <img src="~/@item.Profile.DisplayPhotoPath" alt="error" class="img-responsive img-thumbnail" />
+                            </div>
+                            <div class="col-lg-10">
+                                <p><strong>@item.Profile.DisplayName</strong></p>
+                                <p>@item.Comment</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-body">
+                        <div class="row thumb-group">
+                            <div class="col-lg-6">
+                                <div class="btn btn-success thumb">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="btn btn-danger thumb">
+                                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }*@
+        </div>
+        <div class="col-lg-4">
+            <h3>Other Packages</h3>
+
+            @foreach (var item in Model.OtherHampers)
+            {
+                <div class="panel panel-default package">
+                    <div class="panel-heading">
+                        <h3>@item.Name</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img src="~/@item.PhotoPath" alt="Image Error" class="img-responsive" />
+                    </div>
+                    <div class="panel-footer">
+                        <h5>$@item.Price</h5>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a asp-action="Details" asp-controller="Hamper" asp-route-id="@item.HamperId" class="btn btn-info">Details</a>
+                            </div>
+                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="row provider-package-options">
+                                <div class="col-lg-6">
+                                    <a asp-action="Update" asp-controller="Hamper" asp-route-id="@item.HamperId" class="glyphicon glyphicon-pencil btn btn-warning"></a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <form asp-action="Discontinue" asp-controller="Hamper" asp-route-id="@item.HamperId" method="post"><button type="submit" class="glyphicon glyphicon-trash btn btn-danger"></button></form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
