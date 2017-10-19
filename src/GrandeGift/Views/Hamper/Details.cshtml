@@ -23,6 +23,11 @@
                 }
             </ol>
 
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="GiftList" asp-controller="Hamper" asp-route-id="@Model.Hamper.HamperId">Manage Gifts in Hamper</a>
+            }
+
             @*<form asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@Model.Package.ID" method="post">
                 <button type="submit" class="btn btn-success">Add to cart</button>
             </form>*@

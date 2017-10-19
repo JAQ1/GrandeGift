@@ -7,19 +7,19 @@
 <h1 class="page-title">Gift Hampers</h1>
 
 <div class="container">
-    <form @*asp-action="Index" asp-controller="Package" *@ method="post">
+    <form asp-action="Index" asp-controller="Hamper" method="post">
         <div class="row">
             <div class="col-lg-8">
                 <div class="form-group">
                     <label>Search</label>
-                    <input type="text" @*asp-for="SearchQuery" *@ class="form-control" />
+                    <input type="text" asp-for="@Model.SearchQuery" class="form-control" />
 
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <label>Sort By</label>
-                    <select class="form-control" @*asp-for="@Model.SortBy" *@ id="sel1">
+                    <select class="form-control" asp-for="@Model.SortBy">
                         <option>Name(A - Z)</option>
                         <option>Location(A - Z)</option>
                         <option>Price(High - Low)</option>

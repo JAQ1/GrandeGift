@@ -8,6 +8,9 @@ namespace GrandeGift.Models.HamperViewModels
     public class HamperIndexViewModel
     {
         public IEnumerable<Hamper> Hampers { get; set; }
-
+        public string SearchQuery { get; set; }
+        public string SortBy { get; set; }
+        public double MaxPrice { get; set; }
+        public double MinPrice { get; set; }
     }
 }

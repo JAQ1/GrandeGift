@@ -41,23 +41,59 @@ namespace GrandeGift.Controllers
             _hostingEnviro = hostingEnviro;
         }
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Hamper> hampers = _hamperRepo.Query(h => h.Active != false);
-
-            if (hampers.Count() == 0)
-            {
-                return RedirectToAction("Create");
-            }
+            IEnumerable<Hamper> activeHampers = _hamperRepo.Query(
+                h => h.Active == true
+                );
 
             HamperIndexViewModel vm = new HamperIndexViewModel();
-            vm.Hampers = hampers;
+            vm.Hampers = activeHampers;
 
-            foreach (var item in hampers)
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Index(HamperIndexViewModel vm)
+        {
+            string query = vm.SearchQuery;
+            double maxPrice = vm.MaxPrice;
+            double minPrice = vm.MinPrice;
+            string sortBy = vm.SortBy;
+            IEnumerable<Hamper> searchResult = new List<Hamper>();
+
+            //Search by name
+            if (query != null)
             {
-                item.HamperGifts = _hamperGiftRepo.Query(hg => hg.HamperId == item.HamperId);
+                searchResult = _hamperRepo.Query(
+                     h => h.Active == true &&
+                     h.Name.Contains(query)
+                     );
             }
-            
+            else
+            {
+                searchResult = _hamperRepo.Query(h => h.Active == true);
+            }
+
+            //Sort By options
+            switch (sortBy)
+            {
+                case "Name(A - Z)":
+                    searchResult = searchResult.OrderBy(p => p.Name);
+                    break;
+                case "Price(High - Low)":
+                    searchResult = searchResult.OrderByDescending(p => p.Price);
+                    break;
+                case "Price(Low - High)":
+                    searchResult = searchResult.OrderBy(p => p.Price);
+                    break;
+                default:
+                    break;
+            }
+
+            vm.Hampers = searchResult;
+
             return View(vm);
         }
 
@@ -77,6 +113,8 @@ namespace GrandeGift.Controllers
 
             return View(vm);
         }
+
+        
 
         [HttpPost] 
         public IActionResult Create(CreateHamperViewModel vm, int id, IFormFile PhotoPath)
@@ -159,25 +197,42 @@ namespace GrandeGift.Controllers
         }
 
         [HttpGet]
+        public IActionResult Details(int id)
+        {
+            Hamper hamper = _hamperRepo.GetSingle(h => h.HamperId == id);
+            IEnumerable<Hamper> otherHampers = _hamperRepo.Query(h => h.HamperId != id && h.Active == true);
+            IEnumerable<HamperGift> hamperGifts = _hamperGiftRepo.Query(hg => hg.HamperId == id);
+
+            HamperDetailsViewModel vm = new HamperDetailsViewModel()
+            {
+                Hamper = hamper,
+                OtherHampers = otherHampers,
+                HamperGifts = hamperGifts
+            };
+
+            return View(vm);
+        }
+
+        [HttpGet]
         public IActionResult AddGift()
         {
             return RedirectToAction("Index", "Gift");
         }
 
         [HttpGet]
-        public IActionResult GiftList(int id, Hamper _hamper)
+        public IActionResult GiftList(int id, Hamper hamper)
         {
             IEnumerable<Gift> gifts = _giftRepo.GetAll();
-            IEnumerable<HamperGift> hamperGifts = _hamperGiftRepo.Query(hg => hg.HamperId == _hamper.HamperId);
-            Hamper hamper = new Hamper();
+            IEnumerable<HamperGift> hamperGifts = _hamperGiftRepo.Query(hg => hg.HamperId == hamper.HamperId);
+            Hamper _hamper = new Hamper();
 
-            if (_hamper.HamperId == 0)
+            if (hamper.HamperId == 0)
             {
-                hamper = _hamperRepo.GetSingle(h => h.HamperId == id);
+                _hamper = _hamperRepo.GetSingle(h => h.HamperId == id);
             }
             else
             {
-                hamper = _hamper;
+                _hamper = hamper;
             }
 
             if (gifts.Count() == 0)
@@ -194,7 +249,7 @@ namespace GrandeGift.Controllers
 
             vm.Gifts = gifts;
             vm.HamperGifts = hamperGifts;
-            vm.Hamper = hamper;
+            vm.Hamper = _hamper;
 
             return View(vm);
         }
@@ -216,9 +271,22 @@ namespace GrandeGift.Controllers
                 //HamperName = hamper.Name
             _hamperGiftRepo.Create(hamperGift);
 
-            
-
             return RedirectToAction("GiftList", "Hamper" , hamper);
+        }
+
+        [HttpPost]
+        public IActionResult Search(HamperIndexViewModel vm)
+        {
+            // double check query specs
+            IEnumerable<Hamper> searchHampers = _hamperRepo.Query(
+
+                h => h.Active == true
+                && h.Name.Contains(vm.SearchQuery)
+                );
+
+            vm.Hampers = searchHampers;
+
+            return RedirectToAction("Index", vm);
         }
 
         public IActionResult Order()
