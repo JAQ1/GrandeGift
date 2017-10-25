@@ -1,0 +1,38 @@
+﻿@model AdminIndexViewModel
+
+<div class="page-banner admin-banner"></div>
+
+<h1 class="page-title">Admin</h1>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>Categories</thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-action="Update" asp-controller="Category">Update</a>
+                    <form asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+<table class="table table-striped">
+    <thead>Gifts</thead>
+</table>
+
+<table class="table table-striped">
+    <thead>Hampers</thead>
+</table>

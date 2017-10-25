@@ -102,7 +102,7 @@ namespace GrandeGift.Controllers
 
             _categoryRepo.Delete(category);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Admin");
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()

@@ -49,6 +49,12 @@ namespace GrandeGift
             services.AddScoped<IRepository<Hamper>, BaseRepository<Hamper>>();
             services.AddScoped<IRepository<HamperGift>, BaseRepository<HamperGift>>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:49863"));
+            });
+
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
@@ -65,20 +71,8 @@ namespace GrandeGift
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            // ********************
-            // Setup CORS
-            // ********************
-            var corsBuilder = new CorsPolicyBuilder();
-            corsBuilder.AllowAnyHeader();
-            corsBuilder.AllowAnyMethod();
-            corsBuilder.AllowAnyOrigin(); // For anyone access.
-            //corsBuilder.WithOrigins("http://localhost:56573"); // for a specific url. Don't add a forward slash on the end!
-            corsBuilder.AllowCredentials();
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("SiteCorsPolicy", corsBuilder.Build());
-            });
+            //CORS
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,6 +100,14 @@ namespace GrandeGift
 
             app.UseIdentity();
 
+            // Shows UseCors with CorsPolicyBuilder.
+            app.UseCors(builder =>
+               builder
+               .AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               );
+
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>
@@ -115,10 +117,7 @@ namespace GrandeGift
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            // ********************
-            // USE CORS - might not be required.
-            // ********************
-            app.UseCors("SiteCorsPolicy");
+            
         }
     }
 }

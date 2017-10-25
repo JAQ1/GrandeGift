@@ -47,6 +47,7 @@ namespace GrandeGift.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+
             double maxPrice = 0;
             double minPrice = 0;
             IEnumerable<Hamper> activeHampers = new List<Hamper>();
@@ -54,6 +55,11 @@ namespace GrandeGift.Controllers
             activeHampers = _hamperRepo.Query(
                 h => h.Active == true
                 );
+
+            if (activeHampers.Count() == 0)
+            {
+                return RedirectToAction("Create");
+            }
             
             maxPrice = activeHampers.OrderByDescending(h => h.Price).ElementAt(0).Price;
             minPrice = activeHampers.OrderBy(h => h.Price).ElementAt(0).Price;
@@ -140,6 +146,10 @@ namespace GrandeGift.Controllers
         [HttpPost] 
         public IActionResult Create(CreateHamperViewModel vm, int id, IFormFile PhotoPath)
         {
+            IEnumerable<HamperGift> hamperGifts = vm.HamperGifts;
+            Category category = _categoryRepo.GetSingle(c => c.CategoryId == vm.SelectedCategoryId);
+            string categoryName = _categoryRepo.GetSingle(c => c.CategoryId == vm.SelectedCategoryId).Name;
+
             Hamper hamper = new Hamper();
 
             if (id != 0)
@@ -173,6 +183,7 @@ namespace GrandeGift.Controllers
             }
 
             _hamperRepo.Create(hamper);
+
 
             return RedirectToAction("Index");
         }

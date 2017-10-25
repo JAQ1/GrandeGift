@@ -11,17 +11,21 @@ using Microsoft.AspNetCore.Cors;
 
 namespace GrandeGift.Controllers.API
 {
-    [EnableCors("SitePolicy")]
+    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
         private IRepository<Hamper> _hamperRepo;
+        private IRepository<Category> _categoryRepo;
+
 
         public ValuesController(
-            IRepository<Hamper> hamperRepo
+            IRepository<Hamper> hamperRepo,
+            IRepository<Category> categoryRepo
             )
         {
             _hamperRepo = hamperRepo;
+            _categoryRepo = categoryRepo;
         }
 
         // GET: api/values
@@ -31,14 +35,34 @@ namespace GrandeGift.Controllers.API
             return new string[] { "value1", "value2" };
         }
 
-        [HttpGet("getAll")]
-        public JsonResult GetAll()
+        [HttpGet("getAllHampers")]
+        public JsonResult GetAllHampers()
         {
-            IEnumerable<Hamper> activeHampers = _hamperRepo.Query(h => h.Active == false);
+            IEnumerable<Hamper> activeHampers = _hamperRepo.Query(h => h.Active == true);
+
+            foreach (var item in activeHampers)
+            {
+                item.Category = _categoryRepo.GetSingle(c => c.CategoryId == item.CategoryId);
+            }
 
             return Json(activeHampers);
         }
 
+        [HttpGet("getAllCategories")]
+        public JsonResult GetAllCategories()
+        {
+            IEnumerable<Category> categories = _categoryRepo.GetAll().Distinct();
+
+            return Json(categories);
+        }
+
+        [HttpGet("getHampersByCategoryName")]
+        public JsonResult GetHampersByCategoryName(string categoryName)
+            {
+            IEnumerable<Hamper> hampers = _hamperRepo.Query(h => h.Category.Name == categoryName && h.Active == true);
+
+            return Json(hampers);
+        }
 
         // GET api/values/5
         [HttpGet("{id}")]
