@@ -1,0 +1,26 @@
+﻿@model AddDeliveryAddressViewModel
+
+<div class="page-banner manage-hamper-banner"></div>
+<h1 class="page-title">Create Hamper</h1>
+
+<div class="container userForm">
+    <form asp-action="AddAddress" asp-controller="Profile" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="@Model.StreetAddress"></label>
+            <input asp-for="@Model.StreetAddress" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Suburb"></label>
+            <input asp-for="@Model.Suburb" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.State"></label>
+            <input asp-for="@Model.State" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Postcode"></label>
+            <input asp-for="@Model.Postcode" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+    </form>
+</div>

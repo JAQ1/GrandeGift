@@ -3,7 +3,7 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <p>Admin account</p>
+    <a asp-action="Index" asp-controller="Admin">Admin account</a>
 }
 
 <div class="container">

@@ -51,7 +51,7 @@ namespace GrandeGift.Controllers.API
         [HttpGet("getAllCategories")]
         public JsonResult GetAllCategories()
         {
-            IEnumerable<Category> categories = _categoryRepo.GetAll().Distinct();
+            IEnumerable<Category> categories = _categoryRepo.Query(c => c.Active == true);
 
             return Json(categories);
         }

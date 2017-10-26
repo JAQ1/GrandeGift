@@ -135,7 +135,7 @@ namespace GrandeGift.Controllers
 
             CreateHamperViewModel vm = new CreateHamperViewModel();
             vm.HamperGifts = _hamperGiftRepo.Query(hg => hg.HamperId == hamper.HamperId);
-            vm.Categories = _categoryRepo.GetAll();
+            vm.Categories = _categoryRepo.Query(c => c.Active == true);
             vm.Hamper = hamper;
 
             return View(vm);
@@ -191,12 +191,13 @@ namespace GrandeGift.Controllers
         public IActionResult Update(int id)
         {
             Hamper hamper = _hamperRepo.GetSingle(h => h.HamperId == id);
+            IEnumerable<Category> categories = _categoryRepo.Query(c => c.Active == true);
 
             UpdateHamperViewModel vm = new UpdateHamperViewModel()
             {
                 Name = hamper.Name,
                 Price = hamper.Price,
-                Categories = _categoryRepo.GetAll()
+                Categories = categories
             };
 
             return View(vm);

@@ -8,9 +8,10 @@ using GrandeGift.Data;
 namespace GrandeGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171020224606_updTblHamp")]
+    partial class updTblHamp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -69,8 +70,6 @@ namespace GrandeGift.Migrations
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
 
                     b.Property<string>("Description");
 

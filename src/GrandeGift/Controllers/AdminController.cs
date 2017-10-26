@@ -32,7 +32,7 @@ namespace GrandeGift.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            IEnumerable<Category> categories = _categoryRepo.GetAll();
+            IEnumerable<Category> categories = _categoryRepo.Query(c => c.Active == true);
             IEnumerable<Hamper> hampers = _hamperRepo.Query(h => h.Active == true);
             IEnumerable<Gift> gifts = _giftRepo.GetAll();
 

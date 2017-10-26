@@ -19,12 +19,21 @@
                 <td>@item.Name</td>
                 <td>
                     <a asp-action="Update" asp-controller="Category">Update</a>
-                    <form asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId" method="post">
+                    <form asp-action="Discontinue" asp-controller="Category" asp-route-id="@item.CategoryId" method="post">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
         }
+        <tfoot>
+            <tr>
+                <td>
+                    <a class="btn btn-success btn-full" asp-action="Create" asp-controller="Category">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 

@@ -33,7 +33,7 @@ namespace GrandeGift.Controllers
         public IActionResult Index()
         {
             CategoryIndexViewModel vm = new CategoryIndexViewModel();
-            IEnumerable<Category> categories = _categoryRepo.GetAll();
+            IEnumerable<Category> categories = _categoryRepo.Query(c => c.Active == true);
 
             if (categories.Count() == 0)
             {
@@ -62,20 +62,23 @@ namespace GrandeGift.Controllers
                 Name = vm.Name,
                 Description = vm.Description,
                 PhotoPath = vm.PhotoPath,
-                UserId = user.Id
+                UserId = user.Id,
+                Active = true
             };
 
             _categoryRepo.Create(category);
 
-            return RedirectToAction("Index", "Hamper");
+            return RedirectToAction("Index", "Admin");
         }
 
         [HttpGet]
         public IActionResult Update()
         {
+            IEnumerable<Category> categories = _categoryRepo.Query(c => c.Active == true);
+
             UpdateCategoryViewModel vm = new UpdateCategoryViewModel()
             {
-                Categories = _categoryRepo.GetAll()
+                Categories = categories
             };
 
             return View(vm);
@@ -96,11 +99,12 @@ namespace GrandeGift.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult Discontinue(int id)
         {
             var category = _categoryRepo.GetSingle(c => c.CategoryId == id);
+            category.Active = false;
 
-            _categoryRepo.Delete(category);
+            _categoryRepo.Update(category);
 
             return RedirectToAction("Index", "Admin");
         }

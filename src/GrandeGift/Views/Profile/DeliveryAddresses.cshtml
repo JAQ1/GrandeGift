@@ -1,0 +1,35 @@
+﻿@model DeliveryAddressViewModel
+
+<div class="page-banner profile-banner"></div>
+<h1 class="page-title">Your profile</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>Admin account</p>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            @*<img src="~/@Model.DisplayPhotoPath" alt="profile picture" class="img-thumbnail img-responsive user-img" />*@
+            <hr />
+        </div>
+        <div class="col-lg-9">
+            <ul class="nav nav-tabs profile-options">
+                <li ><a asp-action="Index" asp-controller="Profile">Overview</a></li>
+                <li class="active"><a ></a></li>
+                <li><a asp-controller="Profile" asp-action="UpdateProfile">Update Profile</a></li>
+            </ul>
+            <br />
+            <div class="profile-options">
+                @foreach (var item in Model.DeliveryAddresses)
+                {
+                    <p>@item</p>
+                }
+            </div>
+            <hr />
+            <a asp-action="AddDeliveryAddress" asp-controller="Profile"></a>
+            <br />
+        </div>
+    </div>
+</div>
