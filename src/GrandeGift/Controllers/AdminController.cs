@@ -16,12 +16,12 @@ namespace GrandeGift.Controllers
     public class AdminController : Controller
     {
         private IRepository<Category> _categoryRepo;
-        private IRepository<Hamper> _hamperRepo;
+        private IHamperRepository _hamperRepo;
         private IRepository<Gift> _giftRepo;
 
         public AdminController(
             IRepository<Category> categoryRepo,
-            IRepository<Hamper> hamperRepo,
+            IHamperRepository hamperRepo,
             IRepository<Gift> giftRepo
             )
         {
@@ -33,7 +33,7 @@ namespace GrandeGift.Controllers
         public IActionResult Index()
         {
             IEnumerable<Category> categories = _categoryRepo.Query(c => c.Active == true);
-            IEnumerable<Hamper> hampers = _hamperRepo.Query(h => h.Active == true);
+            IEnumerable<Hamper> hampers = _hamperRepo.GetActiveHampers();
             IEnumerable<Gift> gifts = _giftRepo.GetAll();
 
             AdminIndexViewModel vm = new AdminIndexViewModel()

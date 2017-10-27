@@ -20,7 +20,7 @@ namespace GrandeGift.Controllers
     public class HamperController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
-        private IRepository<Hamper> _hamperRepo;
+        private IHamperRepository _hamperRepo;
         private IRepository<Category> _categoryRepo;
         private IRepository<Gift> _giftRepo;
         private IRepository<HamperGift> _hamperGiftRepo;
@@ -28,7 +28,7 @@ namespace GrandeGift.Controllers
 
         public HamperController(
             UserManager<ApplicationUser> userManager,
-            IRepository<Hamper> hamperRepo,
+            IHamperRepository hamperRepo,
             IRepository<Gift> giftRepo,
             IRepository<Category> categoryRepo,
             IRepository<HamperGift> hamperGiftRepo,
@@ -50,11 +50,9 @@ namespace GrandeGift.Controllers
 
             double maxPrice = 0;
             double minPrice = 0;
-            IEnumerable<Hamper> activeHampers = new List<Hamper>();
+            IEnumerable<Hamper> activeHampers = _hamperRepo.GetActiveHampers();
+            IEnumerable<Category> activeCategories = _categoryRepo.Query(c => c.Active == true);
 
-            activeHampers = _hamperRepo.Query(
-                h => h.Active == true
-                );
 
             if (activeHampers.Count() == 0)
             {
@@ -67,12 +65,14 @@ namespace GrandeGift.Controllers
 
             HamperIndexViewModel vm = new HamperIndexViewModel();
             vm.Hampers = activeHampers;
+            vm.Categories = activeCategories;
             vm.MaxPrice = maxPrice;
             vm.MinPrice = minPrice;
 
             return View(vm);
         }
 
+        //Search
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Index(HamperIndexViewModel vm)
@@ -81,44 +81,13 @@ namespace GrandeGift.Controllers
             double maxPrice = vm.MaxPrice;
             double minPrice = vm.MinPrice;
             string sortBy = vm.SortBy;
-            IEnumerable<Hamper> searchResult = new List<Hamper>();
+            int catId = vm.CategoryId;
 
-            //Search by name
-            if (query != null)
-            {
-                searchResult = _hamperRepo.Query(
-                     h => h.Active == true &&
-                     h.Name.Contains(query)
-                     );
-            }
-            else
-            {
-                searchResult = _hamperRepo.Query(h => h.Active == true);
-            }
+            IEnumerable<Hamper> searchResult = _hamperRepo.SearchHampers(query, catId, maxPrice, minPrice, sortBy);
 
-            //Sort By options
-            switch (sortBy)
-            {
-                case "Name(A - Z)":
-                    searchResult = searchResult.OrderBy(p => p.Name);
-                    break;
-                case "Price(High - Low)":
-                    searchResult = searchResult.OrderByDescending(p => p.Price);
-                    break;
-                case "Price(Low - High)":
-                    searchResult = searchResult.OrderBy(p => p.Price);
-                    break;
-                default:
-                    break;
-            }
+            IEnumerable<Category> activeCategories = _categoryRepo.Query(c => c.Active == true);
 
-            //Filter by Price
-            searchResult = _hamperRepo.Query(
-                h => h.Price >= minPrice
-                && h.Price <= maxPrice
-                && h.Active == true
-                );
-
+            vm.Categories = activeCategories;
             vm.Hampers = searchResult;
 
             return View(vm);
@@ -304,6 +273,12 @@ namespace GrandeGift.Controllers
             _hamperGiftRepo.Create(hamperGift);
 
             return RedirectToAction("GiftList", "Hamper" , hamper);
+        }
+
+        private int getCategoryIdByName(string name)
+        {
+            int categoryId = _categoryRepo.GetSingle(c => c.Name == name).CategoryId;
+            return categoryId;
         }
     }
 }

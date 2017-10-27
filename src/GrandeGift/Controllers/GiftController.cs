@@ -7,11 +7,13 @@ using GrandeGift.Models;
 using GrandeGift.Models.GiftViewModels;
 using GrandeGift.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GrandeGift.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GiftController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
@@ -65,7 +67,7 @@ namespace GrandeGift.Controllers
 
             _giftRepo.Create(gift);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Admin");
         }
 
         [HttpGet]

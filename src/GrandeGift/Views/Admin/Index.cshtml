@@ -6,7 +6,7 @@
 
 <div class="container">
     <table class="table table-striped">
-        <thead>Categories</thead>
+        <h2>Categories</h2>
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -18,30 +18,75 @@
                 <td>@item.CategoryId</td>
                 <td>@item.Name</td>
                 <td>
-                    <a asp-action="Update" asp-controller="Category">Update</a>
+                    <a class="btn btn-warning btn-full" asp-action="Update" asp-controller="Category">Update</a>
                     <form asp-action="Discontinue" asp-controller="Category" asp-route-id="@item.CategoryId" method="post">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
         }
-        <tfoot>
-            <tr>
-                <td>
-                    <a class="btn btn-success btn-full" asp-action="Create" asp-controller="Category">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-                </td>
-            </tr>
-        </tfoot>
     </table>
+    <a class="btn btn-success btn-full" asp-action="Create" asp-controller="Category">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+    <hr />
 </div>
 
+<div class="container">
+    <table class="table table-striped">
+        <h2>Gifts</h2>
 
-<table class="table table-striped">
-    <thead>Gifts</thead>
-</table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model.Gifts)
+        {
+            <tr>
+                <td>@item.GiftId</td>
+                <td>@item.Name</td>
+                <td>
+                    <a class="btn btn-warning btn-full" asp-action="Update" asp-controller="Gift">Update</a>
+                    <form asp-action="Discontinue" asp-controller="Gift" asp-route-id="@item.GiftId" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <a class="btn btn-success btn-full" asp-action="Create" asp-controller="Gift">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+    <hr />
+</div>
 
-<table class="table table-striped">
-    <thead>Hampers</thead>
-</table>
+<div class="container">
+    <table class="table table-striped">
+        <h2>Hampers</h2>
+
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model.Hampers)
+        {
+            <tr>
+                <td>@item.HamperId</td>
+                <td>@item.Name</td>
+                <td>
+                    <a class="btn btn-warning btn-full" asp-action="Update" asp-controller="Hamper">Update</a>
+                    <form asp-action="Discontinue" asp-controller="Hamper" asp-route-id="@item.HamperId" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <a class="btn btn-success btn-full" asp-action="Create" asp-controller="Hamper">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+    <hr />
+</div>
+

@@ -95,7 +95,7 @@ namespace GrandeGift.Controllers
 
             _categoryRepo.Update(category);
 
-            return RedirectToAction("Create", "Hamper");
+            return RedirectToAction("Index", "Admin");
         }
 
         [HttpPost]

@@ -9,11 +9,23 @@
 <div class="container">
     <form asp-action="Index" asp-controller="Hamper" method="post">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <label>Search</label>
                     <input type="text" asp-for="@Model.SearchQuery" class="form-control" />
 
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-control" asp-for="@Model.CategoryId">
+                        <option>All</option>
+                        @foreach (var item in Model.Categories)
+                        {
+                            <option value="@item.CategoryId">@item.Name</option>
+                        }
+                    </select>
                 </div>
             </div>
             <div class="col-lg-2">

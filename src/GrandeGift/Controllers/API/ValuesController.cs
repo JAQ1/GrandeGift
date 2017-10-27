@@ -15,12 +15,12 @@ namespace GrandeGift.Controllers.API
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private IRepository<Hamper> _hamperRepo;
+        private IHamperRepository _hamperRepo;
         private IRepository<Category> _categoryRepo;
 
 
         public ValuesController(
-            IRepository<Hamper> hamperRepo,
+            IHamperRepository hamperRepo,
             IRepository<Category> categoryRepo
             )
         {
@@ -38,7 +38,7 @@ namespace GrandeGift.Controllers.API
         [HttpGet("getAllHampers")]
         public JsonResult GetAllHampers()
         {
-            IEnumerable<Hamper> activeHampers = _hamperRepo.Query(h => h.Active == true);
+            IEnumerable<Hamper> activeHampers = _hamperRepo.GetActiveHampers();
 
             foreach (var item in activeHampers)
             {
