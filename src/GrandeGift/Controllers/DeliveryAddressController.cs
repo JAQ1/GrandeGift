@@ -33,8 +33,8 @@ namespace GrandeGift.Controllers
         public IActionResult Index()
         {
             ApplicationUser user = GetCurrentUserAsync().Result;
-            IEnumerable<DeliveryAddress> addresses = _addressRepo.GetAll();
             Profile profile = _profileRepo.GetSingle(p => p.UserId == user.Id);
+            IEnumerable<DeliveryAddress> addresses = _addressRepo.Query(a => a.ProfileId == profile.ProfileId);
 
             DeliveryAddressIndexViewModel vm = new DeliveryAddressIndexViewModel()
             {
@@ -43,6 +43,33 @@ namespace GrandeGift.Controllers
             };
 
             return View(vm);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateDeliveryAddressViewModel vm)
+        {
+            ApplicationUser user = GetCurrentUserAsync().Result;
+            Profile profile = _profileRepo.GetSingle(p => p.UserId == user.Id);
+
+            DeliveryAddress address = new DeliveryAddress()
+            {
+                Name = vm.DeliveryAddress.Name,
+                StreetAddress = vm.DeliveryAddress.StreetAddress,
+                City = vm.DeliveryAddress.City,
+                State = vm.DeliveryAddress.State,
+                Postcode = vm.DeliveryAddress.Postcode,
+                ProfileId = profile.ProfileId
+            };
+
+            _addressRepo.Create(address);
+
+            return RedirectToAction("Index");
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()
