@@ -15,6 +15,7 @@ namespace GrandeGift.Data
         public DbSet<Gift> TblGift { get; set; }
         public DbSet<Hamper> TblHamper { get; set; }
         public DbSet<HamperGift> TblHamperGift { get; set; }
+        public DbSet<DeliveryAddress> TblDeliveryAddress { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

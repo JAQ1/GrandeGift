@@ -1,0 +1,61 @@
+﻿@model DeliveryAddressIndexViewModel
+
+<div class="page-banner profile-banner"></div>
+<h1 class="page-title">Your profile</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <a class="page-title" asp-action="Index" asp-controller="Admin">Admin account</a>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <img src="~/@Model.Profile.DisplayPhotoPath" alt="profile picture" class="img-thumbnail img-responsive user-img" />
+            <hr />
+        </div>
+        <div class="col-lg-9">
+            <ul class="nav nav-tabs profile-options">
+                <li class="active"><a href="#">Overview</a></li>
+                <li><a href="#">My Bookings</a></li>
+                <li><a asp-action="Index" asp-controller="DeliveryAddress">Delivery Addresses</a></li>
+                <li><a asp-controller="Profile" asp-action="UpdateProfile">Update Profile</a></li>
+            </ul>
+            <br />
+            <div class="container">
+                <h1 class="page-title">Delivery Addresses</h1>
+
+                <table class="table table-striped" style="width:50%">
+                    <tr>
+                        <th>Name</th>
+                        <th>Street Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Postcode</th>
+                        <th>Actions</th>
+                    </tr>
+                    @foreach (var item in Model.DeliveryAddresses)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.StreetAddress</td>
+                            <td>@item.City</td>
+                            <td>@item.State</td>
+                            <td>@item.Postcode</td>
+                            <td>
+                                <a>Update</a>
+                                <a>Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <a class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

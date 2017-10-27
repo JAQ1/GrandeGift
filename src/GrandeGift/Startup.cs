@@ -48,6 +48,7 @@ namespace GrandeGift
             services.AddScoped<IRepository<Category>, BaseRepository<Category>>();
             services.AddScoped<IHamperRepository, HamperRepository>();
             services.AddScoped<IRepository<HamperGift>, BaseRepository<HamperGift>>();
+            services.AddScoped<IRepository<DeliveryAddress>, BaseRepository<DeliveryAddress>>();
 
             services.AddCors(options =>
             {
