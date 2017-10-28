@@ -34,7 +34,7 @@ namespace GrandeGift.Controllers
         {
             ApplicationUser user = GetCurrentUserAsync().Result;
             Profile profile = _profileRepo.GetSingle(p => p.UserId == user.Id);
-            IEnumerable<DeliveryAddress> addresses = _addressRepo.Query(a => a.ProfileId == profile.ProfileId);
+            IEnumerable<DeliveryAddress> addresses = _addressRepo.Query(a => a.ProfileId == profile.ProfileId && a.Active == true);
 
             DeliveryAddressIndexViewModel vm = new DeliveryAddressIndexViewModel()
             {
@@ -101,6 +101,18 @@ namespace GrandeGift.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            DeliveryAddress address = _addressRepo.GetSingle(a => a.DeliveryAddressId == id);
+
+            address.Active = false;
+            _addressRepo.Update(address);
+
+            return RedirectToAction("Index");
+        }
+
 
         private Task<ApplicationUser> GetCurrentUserAsync()
         {

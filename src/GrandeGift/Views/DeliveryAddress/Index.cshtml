@@ -44,7 +44,9 @@
                             <td>@item.Postcode</td>
                             <td>
                                 <a asp-action="Update" asp-controller="DeliveryAddress" asp-route-id="@item.DeliveryAddressId">Update</a>
-                                <a>Delete</a>
+                                <form asp-action="Delete" asp-controller="DeliveryAddress" asp-route-id="@item.DeliveryAddressId" method="post">
+                                    <button class="btn btn-danger" type="submit" >Delete</button>
+                                </form>
                             </td>
                         </tr>
                     }
