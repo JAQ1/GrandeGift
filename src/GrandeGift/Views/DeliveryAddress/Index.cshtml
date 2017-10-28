@@ -43,7 +43,7 @@
                             <td>@item.State</td>
                             <td>@item.Postcode</td>
                             <td>
-                                <a>Update</a>
+                                <a asp-action="Update" asp-controller="DeliveryAddress" asp-route-id="@item.DeliveryAddressId">Update</a>
                                 <a>Delete</a>
                             </td>
                         </tr>

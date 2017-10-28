@@ -13,6 +13,7 @@ namespace GrandeGift.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Postcode { get; set; }
+        public bool Active { get; set; }
 
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }

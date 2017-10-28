@@ -64,10 +64,40 @@ namespace GrandeGift.Controllers
                 City = vm.DeliveryAddress.City,
                 State = vm.DeliveryAddress.State,
                 Postcode = vm.DeliveryAddress.Postcode,
-                ProfileId = profile.ProfileId
+                ProfileId = profile.ProfileId,
+                Active = true
             };
 
             _addressRepo.Create(address);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            DeliveryAddress address = _addressRepo.GetSingle(a => a.DeliveryAddressId == id);
+
+            UpdateDeliveryAddressViewModel vm = new UpdateDeliveryAddressViewModel()
+            {
+                DeliveryAddress = address
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Update(UpdateDeliveryAddressViewModel vm, int id)
+        {
+            DeliveryAddress address = _addressRepo.GetSingle(a => a.DeliveryAddressId == id);
+
+            address.Name = vm.DeliveryAddress.Name;
+            address.StreetAddress = vm.DeliveryAddress.StreetAddress;
+            address.City = vm.DeliveryAddress.City;
+            address.State = vm.DeliveryAddress.State;
+            address.Postcode = vm.DeliveryAddress.Postcode;
+
+            _addressRepo.Update(address);
 
             return RedirectToAction("Index");
         }
